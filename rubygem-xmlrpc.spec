@@ -5,13 +5,20 @@ Name: rubygem-%{gem_name}
 Version: 0.3.1
 Release: 1%{?dist}
 Summary: XMLRPC is a lightweight protocol that enables remote procedure calls over HTTP
-License: Ruby and BSD-2-Clause
+License: Ruby and BSD
 URL: https://github.com/ruby/xmlrpc
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# The test suite is not shiped with the gem, you may check it out like so
+# git clone --no-checkout https://github.com/ruby/xmlrpc
+# cd xmlrpc && git archive -v -o xmlrpc-0.3.1-tests.txz v0.3.1 test/
+Source1: xmlrpc-%{version}-tests.txz
+
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.3
 BuildRequires: rubygem(test-unit)
+BuildRequires: rubygem(webrick)
+BuildRequires: rubygem(rexml)
 BuildArch: noarch
 
 %description
@@ -27,7 +34,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version} -b1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -40,7 +47,10 @@ cp -a .%{gem_dir}/* \
 
 %check
 pushd .%{gem_instdir}
-ruby -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+# Symlink the test suite into plaec
+ln -s %{_builddir}/test .
+
+ruby -Ilib -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
 popd
 
 %files
