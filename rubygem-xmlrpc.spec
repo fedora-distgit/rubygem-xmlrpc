@@ -1,8 +1,8 @@
-# Generated from xmlrpc-0.3.1.gem by gem2rpm -*- rpm-spec -*-
+# Generated from xmlrpc-0.3.2.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name xmlrpc
 
 Name: rubygem-%{gem_name}
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 Summary: XMLRPC is a lightweight protocol that enables remote procedure calls over HTTP
 License: Ruby and BSD
@@ -10,7 +10,7 @@ URL: https://github.com/ruby/xmlrpc
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # The test suite is not shiped with the gem, you may check it out like so
 # git clone --no-checkout https://github.com/ruby/xmlrpc
-# cd xmlrpc && git archive -v -o xmlrpc-0.3.1-tests.txz v0.3.1 test/
+# cd xmlrpc && git archive -v -o xmlrpc-0.3.2-tests.txz v0.3.2 test/
 Source1: xmlrpc-%{version}-tests.txz
 
 BuildRequires: ruby(release)
@@ -71,5 +71,5 @@ popd
 %{gem_instdir}/NEWS.md
 
 %changelog
-* Wed Jan 13 2021 Pavel Valena <pvalena@redhat.com> - 0.3.1-1
+* Wed Jan 13 2021 Pavel Valena <pvalena@redhat.com> - 0.3.2-1
 - Initial package
